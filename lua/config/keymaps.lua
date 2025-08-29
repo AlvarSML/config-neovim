@@ -4,8 +4,10 @@
 local map = LazyVim.safe_keymap_set
 
 -- Neotree
-map('n', "<C-b>", ":Neotree toggle<CR>", { desc = "Toggle explorador" })
-map('n', "<leader>B", ":Neotree source=buffers<CR>", { desc = "Buffers abiertos" })
+map({ 'n', 'i', 'x', 'v' }, "<A-b>", ":Neotree toggle<CR>", { desc = "Toggle explorador" })
+
+-- Telescope
+map('n', "<leader>tb", ":Telescope buffers <CR>", { desc = "Buffers abiertos" })
 
 -- Tabs
 map('n', "<leader><tab><tab>", ":tabNext<CR>", { desc = "Next tab" })
