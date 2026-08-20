@@ -16,17 +16,22 @@ map("n", "<leader><tab>n", ":tabnew<CR>", { desc = "New tab" })
 -- Terminal
 map("t", "<esc><esc>", [[<C-\><C-n>]])
 
--- clipboard wsl
+-- Eliminar ^M al copiar con windows
+map("n", ",m", function()
+  vim.cmd(":%s/\r//g")
+end)
+
+-- clipboard wsl (win32yank: maneja UTF-8 y CRLF/LF correctamente)
 if vim.fn.has("wsl") then
   vim.g.clipboard = {
-    name = "win_clipboard",
+    name = "win32yank",
     copy = {
-      ["+"] = "clip.exe",
-      ["*"] = "clip.exe",
+      ["+"] = "win32yank.exe -i --crlf",
+      ["*"] = "win32yank.exe -i --crlf",
     },
     paste = {
-      ["+"] = "powershell.exe Get-Clipboard",
-      ["*"] = "powershell.exe Get-Clipboard",
+      ["+"] = "win32yank.exe -o --lf",
+      ["*"] = "win32yank.exe -o --lf",
     },
     cache_enabled = 0,
   }
